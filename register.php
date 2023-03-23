@@ -1,3 +1,40 @@
+
+<?php 
+
+    session_start();
+
+    require_once "connection.php";
+
+    if (isset($_POST['submit'])) {
+        
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        $user_check = "SELECT * FROM user WHERE email = '$email' LIMIT 1";
+        $result = mysqli_query($conn, $user_check);
+        $user = mysqli_fetch_assoc($result);
+
+        if ($user['email'] === $email){
+            echo "<script>alert('Email already exists');</script>";
+        } else {
+            $query = "INSERT INTO user (name,email,password,userlevel)
+                        VALUE ('$name','$email','$password','m')";
+            $result = $result = mysqli_query($conn, $query);
+
+            if ($result){
+                $_SESSION['success'] = "Insert user successfully";
+                header("Location: index.php");
+            } else {
+                $_SESSION['error'] = "Something went wrong";
+                header("Location: index.php");
+            }
+        }
+    }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +53,11 @@
                     <img src="https://www.thaicar-accessories.com/wp-content/uploads/2020/10/05cItXL96l4LE9n02WfDR0h-5..1582751026.png" alt="">
                 </div>
             </div>
-            <form action="" method="post">
+
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+
+            
+
                 <div class="form-content">
                     <div class="login-form">
                         <div class="title">Register</div>
