@@ -1,3 +1,4 @@
+
 <?php 
 
     session_start();
@@ -33,6 +34,7 @@
 
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,7 +53,11 @@
                     <img src="https://www.thaicar-accessories.com/wp-content/uploads/2020/10/05cItXL96l4LE9n02WfDR0h-5..1582751026.png" alt="">
                 </div>
             </div>
+
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+
+            
+
                 <div class="form-content">
                     <div class="login-form">
                         <div class="title">Register</div>
