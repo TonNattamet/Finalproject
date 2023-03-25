@@ -19,8 +19,6 @@
 
             <form action="login.php" method="post">
 
-            <form action="" method="post">
-
                 <div class="form-content">
                     <div class="login-form">
                         <div class="title">Login</div>
