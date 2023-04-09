@@ -18,11 +18,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Admin - Dashboard</title>
+        <title>Admin - User</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="admincss/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+        <script language="JavaScript" type="text/javascript">
+        function checkDelete(){
+            return confirm('Are you sure to Delete?');
+        }
+        </script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -84,70 +90,56 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Dashboard</h1>
-                        <br>
-                        <div class="row">
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">
-                                        <?php
-                                        $query1=mysqli_query($conn,"SELECT id FROM user ORDER BY id");
-                                        $countuser=mysqli_num_rows($query1);
-                                        ?>
-                                        <h2 style="text-align: center;">All User</h2>
-                                        <h4 style="text-align: center;"><?php echo $countuser;?> Users</h4>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-secondary text-white mb-4">
-                                    <div class="card-body">
+                        <h1 class="mt-4">All User</h1>
+                        <div class="container">
+                            <br>
+                            <a href="adduser.php"><button class="btn btn-success my-1" type="submit">Add User</button></a>
+                           
+                            <br>
+                            <br>
+                            <table id="datatableuser" class="table">
+                                <thead>
+                                    <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Password</th>
+                                    <th scope="col">UserLevel</th>
+                                    <th scope="col">Operation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                     <?php
-                                        $query2=mysqli_query($conn,"SELECT id_category FROM category ORDER BY id_category");
-                                        $countcategory=mysqli_num_rows($query2);
-                                        ?>
-                                        <h2 style="text-align: center;">All Category</h2>
-                                        <h4 style="text-align: center;"><?php echo $countcategory;?> Categories</h4>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">
-                                    <?php
-                                        $query3=mysqli_query($conn,"SELECT id_type FROM type ORDER BY id_type");
-                                        $counttype=mysqli_num_rows($query3);
-                                        ?>
-                                        <h2 style="text-align: center;">All Type</h2>
-                                        <h4 style="text-align: center;"><?php echo $counttype;?> Types</h4>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">
-                                    <?php
-                                        $query4=mysqli_query($conn,"SELECT id FROM data_movie ORDER BY id");
-                                        $countmovie=mysqli_num_rows($query4);
-                                        ?>
-                                        <h2 style="text-align: center;">All Movies</h2>
-                                        <h4 style="text-align: center;"><?php echo $countmovie;?> Movies</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; BiPast Website 2022</div>
+                                        $result=mysqli_query($conn,"SELECT * FROM user ORDER BY userlevel ASC");
+                                        if($result){
+                                            while($row=mysqli_fetch_assoc($result)){
+                                                $id=$row['id'];
+                                                $name=$row['name'];
+                                                $email=$row['email'];
+                                                $password=$row['password'];
+                                                $userlevel=$row['userlevel'];
+                                                echo '<tr>
+                                                <th scope="row">'.$name.'</th>
+                                                <td>'.$email.'</td>
+                                                <td>'.$password.'</td>
+                                                <td>'.$userlevel.'</td>
+                                                <td>
+                                                <a href="updateuser.php?id='.$id.'"><button class="btn btn-primary btn-sm" type="submit">Update</button></a>
+                                                <a href="deleteuserdb.php?id='.$id.'" onclick="return checkDelete()"><button class="btn btn-danger btn-sm" type="submit">Delete</button></a>
+                                                
+                                                </td>
+                                                </tr>';
+                                            }
+                                        }
+                                    ?>
+                                    
+                                    
+                                </tbody>
+                                </table>
                         </div>
                     </div>
-                </footer>
             </div>
         </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
@@ -155,5 +147,14 @@
         <script src="assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#datatableuser').DataTable();
+            } );
+        </script>
+
+        
     </body>
 </html>
