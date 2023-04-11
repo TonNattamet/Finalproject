@@ -17,7 +17,7 @@ Finalproject Software Engineer
 
 4.Open http://localhost/phpmyadmin/index.php
 
-5.Create database fixname(bipast)
+5.Create database **fixname(bipast)
 
 6.import flie: bipast.sql
 
