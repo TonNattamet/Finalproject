@@ -27,6 +27,8 @@
 		<div class="form-add">
     <div class="content">
 
+    <form action="addmoviedb.php" method="POST">
+
         <h1 style="text-align:center;">Add Movie data</h1>
         <div class="user-details">
           <!-- <div class="input-box">
