@@ -56,8 +56,6 @@
 
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 
-            
-
                 <div class="form-content">
                     <div class="login-form">
                         <div class="title">Register</div>
